@@ -1,0 +1,32 @@
+{
+    "version" : "1.2.0",
+    "authors" : ["jason(jasonsoop@gmail.com)"],
+    "description" : "This is a framework about plugin application development.",
+
+    "frameworks" : {
+        "net45" : {
+        
+        },
+        "net46" : {
+            "define" : ["PLAT_SAFE_CONTINUATIONS"]
+        },
+        "netstandard1.6" : {
+            "imports" : ["dotnet5.6", "dnxcore50", "portable-net45+win8"],
+            "buildOptions" : {
+                "define" : ["PLAT_SAFE_CONTINUATIONS", "CORE_CLR"]
+            },
+            "dependencies" : {
+                "NETStandard.Library" : "1.6.0",
+                "System.Collections.Specialized" : "4.0.1"
+            }
+        }
+    },
+
+    "dependencies" : {
+        "Tiandao.CoreLibrary": "1.2.0"
+    },
+
+    "buildOptions" : {
+        "xmlDoc" : true
+    }
+}

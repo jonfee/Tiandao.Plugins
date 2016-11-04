@@ -1,0 +1,73 @@
+﻿using System;
+using Tiandao.Common;
+
+namespace Tiandao.Plugins
+{
+	public class FixedElementCollection<T> : FixedElementCollection
+	{
+		#region 公共属性
+
+		public FixedElementType ElementType
+		{
+			get
+			{
+				if(typeof(IParser).IsAssignableFrom(typeof(T)))
+					return FixedElementType.Parser;
+				if(typeof(IBuilder).IsAssignableFrom(typeof(T)))
+					return FixedElementType.Builder;
+				if(typeof(Tiandao.ComponentModel.IApplicationModule).IsAssignableFrom(typeof(T)))
+					return FixedElementType.Module;
+
+				throw new PluginException();
+			}
+		}
+
+		public FixedElement<T> this[int index]
+		{
+			get
+			{
+				return (FixedElement<T>)this.Get(index);
+			}
+		}
+
+		public FixedElement<T> this[string name]
+		{
+			get
+			{
+				return (FixedElement<T>)this.Get(name);
+			}
+		}
+
+		#endregion
+
+		#region 构造方法
+
+		internal protected FixedElementCollection()
+		{
+		}
+
+		#endregion
+
+		#region 公共方法
+
+		public FixedElement<T> Add(string typeName, string name, Plugin plugin)
+		{
+			FixedElement<T> item = new FixedElement<T>(typeName, name, plugin, this.ElementType);
+
+			base.Insert(item, -1);
+
+			return item;
+		}
+
+		public FixedElement<T> Add(Type type, string name, Plugin plugin)
+		{
+			FixedElement<T> item = new FixedElement<T>(type, name, plugin, this.ElementType);
+
+			base.Insert(item, -1);
+
+			return item;
+		}
+
+		#endregion
+	}
+}
